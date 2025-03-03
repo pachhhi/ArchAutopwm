@@ -15,7 +15,7 @@ if ! grep -q "Arch Linux" /etc/os-release;then
 	exit 1
 else 
 	#Update System
-	echo "Updating System"
+	echo -e "${GREEN}Updating System before to install${RESET}"
 	sudo pacman -Syu --noconfirm
 	sudo pacman -S --noconfirm bspwm polybar sxhkd rofi kitty feh picom
 
