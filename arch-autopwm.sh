@@ -17,7 +17,7 @@ else
 	#Update System
 	echo "Updating System"
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S --noconfirm bspwm polybar sxhkd rofi kitty feh picom zsh
+	sudo pacman -S --noconfirm bspwm polybar sxhkd rofi kitty feh picom
 
 	#BSPWM
 	if [ -d "$HOME/.config/bspwm/" ];then
@@ -42,8 +42,6 @@ else
 		echo -e "${OK}"
 	fi
 	
-	#Apply Wallpapper ( need be added to bspwmrc for work )
-	feh --bg-scale $HOME/ArchAutopwm/wallpaper/lainwallpaper2.jpg
 	
 	#SXHKD
 	if [ -d "$HOME/.config/sxhkd"];then	
@@ -98,35 +96,46 @@ else
 		
 		if [ $respolybar == "y" ];then
 			rm -rf "$HOME/.config/polybar"
-			cp -r $HOME/ArchAutopwm/kitty $HOME/.config/
+			#Ejecutar launch.sh
+			cp -r $HOME/ArchAutopwm/polybar/ $HOME/.config/
 			echo -e "${OK}"
 		else
 			echo -e "${BACKUP}"
-			
+		fi			
 	else
-		cp -r $HOME/ArchAutopwm/kitty $HOME/.config/
+		cp -r $HOME/ArchAutopwm/polybar/ $HOME/.config/
+		chmod +x ~/.config/polybar/forest/launch.sh
+		~/.config/polybar/forest/launch.sh
 		echo -e "${OK}"
 	fi
 
-	#ZSH AND OHMYZSH
+	#ZSH
 	if command -v zsh &> /dev/null; then
 		echo "Installing ZSH"
-		sudo pacman -S --noconfirm zsh
+		sudo pacman -S --noconfirm zsh	
+		chsh -s $(which zsh)
+		echo "$SHELL"
 	fi	
 	
-	echo "Installing OhMyZsh"
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-	chsh -s $(which zsh)
-	echo "$SHELL"
-
+	#OHMYZSH
 	ZSHRC="$HOME/.zshrc"
-	if [ -f "$ZSHRC" ]; then
-		sed -i 's/ZSH_THEME=".*"/ZSH_THEME="agnoster"/'
-	else
-		echo 'ZSH_THEME="agnoster"' > "$ZSHRC"
+	if [ ! -f "$ZSHRC" ]; then
+		echo "Installing OhMyZsh"
+		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+		rm -rf $HOME/.zshrc
+				
+		#POWERLEVEL10K
+		if [ ! -d "$HOMEHOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
+			git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+		fi
+		cp ~/ArchAutopwm/.zshrc $HOME/
+		echo -e "${OK}"
+	else 
+		echo -e "${BACKUP}"
 	fi
 
-	fi [ -d "$HOME/.config/picom" ]; then
+	#PICOM
+	if [ -d "$HOME/.config/picom" ]; then
 		echo -e "${EXISTS}"
 		echo -e "${DEL}"
 		
@@ -141,10 +150,15 @@ else
 	else
 		cp $HOME/ArchAutopwm/picom $HOME/.config/
 		echo "${OK}"
-	if
+	fi
+	
+	#REBOOT NOW
+	echo -e "${REBOOT}"
+
+	if [ $REBOOT == "y" ]; then
+		sudo reboot now 
+	else
+		echo -e "Finished!"
+	fi
 fi	
-
-#FALTA REDIRIGIR BIEN LA POLYBAR, YA QUE TENGO MUCHOS TEMAS Y YO SOLO QUIERO APLICAR UNO (EL DE FOREST) 
-
-
 

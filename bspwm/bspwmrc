@@ -19,7 +19,7 @@ bspc rule -a Screenkey manage=off
 
 picom --config $HOME/.config/picom/picom.conf &
 
-feh --bg-scale $HOME/Downloads/lainwallpaper2.jpg &
+feh --bg-scale $HOME/ArchAutopwm/wallpaper/lainwallpaper2.jpg &
 
 bash ~/.config/polybar/launch.sh --forest &
 
