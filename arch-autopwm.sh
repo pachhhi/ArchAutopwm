@@ -31,7 +31,7 @@ else
 		if [ "$resbspwm" == "y" ];then
 			rm -rf "$HOME/.config/bspwm"
 			cp -r $HOME/ArchAutopwm/bspwm $HOME/.config/
-			echo "${OK}"
+			echo -e "${OK}"
 		else
 			echo -e "${DEL}"
 			exit 1
@@ -54,7 +54,7 @@ else
 		if [ $ressxhkd == "y" ];then
 			rmdir -rf "$HOME/.config/sxhkd"
 			cp -r $HOME/ArchAutopwm/sxhkd $HOME/.config/
-			echo "${OK}"
+			echo -e "${OK}"
 		else	
 			echo -e "${BACKUP}"
 			exit 1
@@ -62,7 +62,7 @@ else
 	
 	else
 		cp -r $HOME/ArchAutopwm/sxhkd $HOME/.config/
-		echo -e ${OK}
+		echo -e "${OK}"
 	fi
 
 	#KITTY
@@ -80,7 +80,7 @@ else
 			echo -e "${OK}"
 		else		
 			echo -e "${BACKUP}"
-			exit 1
+		fi
 	else
 		cp -r $HOME/ArchAutopwm/kitty $HOME/.config/
 		echo -e "${OK}"
@@ -96,16 +96,33 @@ else
 		
 		if [ $respolybar == "y" ];then
 			rm -rf "$HOME/.config/polybar"
-			#Ejecutar launch.sh
 			cp -r $HOME/ArchAutopwm/polybar/ $HOME/.config/
+			chmod +x $HOME/.config/polybar/forest/launch.sh
+
 			echo -e "${OK}"
 		else
 			echo -e "${BACKUP}"
 		fi			
 	else
 		cp -r $HOME/ArchAutopwm/polybar/ $HOME/.config/
-		chmod +x ~/.config/polybar/forest/launch.sh
-		~/.config/polybar/forest/launch.sh
+		chmod +x $HOME/.config/polybar/forest/launch.sh
+		echo -e "${OK}"
+	fi
+
+	if [ ! -d $HOME/.config/rofi ]; then
+		echo -e "${EXIST}: ROFI"
+		echo -e "${DEL}"
+
+		read rofires
+		if [ $rofires == "y" ]; then
+			rm -rf $HOME/.config/rofi
+			cp -r $HOME/ArchAutopwm/rofi $HOME/.config/
+			echo -e "${OK}"
+		else
+			echo -e "${BACKUP}"
+		fi
+	else
+		cp -r $HOME/ArchAutopwm/rofi $HOME/.config/
 		echo -e "${OK}"
 	fi
 
@@ -120,12 +137,13 @@ else
 	#OHMYZSH
 	ZSHRC="$HOME/.zshrc"
 	if [ ! -f "$ZSHRC" ]; then
-		echo "Installing OhMyZsh"
+		echo -e "${GREEN}Installing OhMyZsh${RESET}"
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 		rm -rf $HOME/.zshrc
 				
 		#POWERLEVEL10K
 		if [ ! -d "$HOMEHOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
+			echo -e "${GREEN}Installing PowerLevel10k${RESET}"
 			git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 		fi
 		cp ~/ArchAutopwm/.zshrc $HOME/
@@ -142,20 +160,21 @@ else
 		read respicom
 		if [ $respicom == "y" ]; then
 			rm -rf $HOME/.config/picom
-			cp $HOME/ArchAutopwm/picom $HOME/.config/
-			echo "${OK}"
+			cp -r $HOME/ArchAutopwm/picom $HOME/.config/
+			echo -e "${OK}"
 		else 
 			echo "{$BACKUP}"
 		fi
 	else
-		cp $HOME/ArchAutopwm/picom $HOME/.config/
-		echo "${OK}"
+		cp -r $HOME/ArchAutopwm/picom $HOME/.config/
+		echo -e "${OK}"
 	fi
 	
 	#REBOOT NOW
-	echo -e "${REBOOT}"
-
-	if [ $REBOOT == "y" ]; then
+	echo -e "${RED}Do you want reboot now?${RESET}"
+	read resreboot
+	
+	if [ $resreboot == "y" ]; then
 		sudo reboot now 
 	else
 		echo -e "Finished!"

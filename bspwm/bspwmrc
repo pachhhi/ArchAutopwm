@@ -21,6 +21,7 @@ picom --config $HOME/.config/picom/picom.conf &
 
 feh --bg-scale $HOME/ArchAutopwm/wallpaper/lainwallpaper2.jpg &
 
-bash ~/.config/polybar/launch.sh --forest &
+polybar -c $HOME/.config/polybar/forest/config.ini &
+bash $HOME/.config/polybar/forest/launch.sh &
 
 exec bspwm
