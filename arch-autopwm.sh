@@ -22,7 +22,7 @@ else
 	#BSPWM
 	if [ -d "$HOME/.config/bspwm/" ];then
 		#error: directory already exists
-		echo -e "${EXISTS}: BSPWM"
+		echo -e "${EXIST}: BSPWM"
 		echo -e "${DEL}"
 
 		read resbspwm
@@ -44,15 +44,15 @@ else
 	
 	
 	#SXHKD
-	if [ -d "$HOME/.config/sxhkd"];then	
+	if [ -d "$HOME/.config/sxhkd" ]; then	
 		echo -e "${EXIST} SXHKD"
 		echo -e "${DEL}"
 
 		read ressxhkd
 
 		#Delete sxhkd and paste the new
-		if [ $ressxhkd == "y" ];then
-			rmdir -rf "$HOME/.config/sxhkd"
+		if [ $ressxhkd == "y" ]; then
+			rm -rf "$HOME/.config/sxhkd"
 			cp -r $HOME/ArchAutopwm/sxhkd $HOME/.config/
 			echo -e "${OK}"
 		else	
@@ -66,7 +66,7 @@ else
 	fi
 
 	#KITTY
-	if [ -d "$HOME/.config/kitty" ];then
+	if [ -d "$HOME/.config/kitty" ]; then
 	
 		echo -e "${EXIST} KITTY"
 		echo -e "${DEL}"
@@ -75,7 +75,7 @@ else
 		
 		#Delete sxhkd and paste the new
 		if [ $reskitty == "y" ];then
-			rmdir -rf "$HOME/.config/kitty"
+			rm -rf "$HOME/.config/kitty"
 			cp -r $HOME/ArchAutopwm/kitty $HOME/.config/
 			echo -e "${OK}"
 		else		
@@ -87,14 +87,14 @@ else
 	fi
 
 	#POLYBAR
-	if [ -d "$HOME/.config/polybar" ];then
+	if [ -d "$HOME/.config/polybar" ]; then
 		
 		echo -e "${EXISTS} POLYBAR"
 		echo -e "${DEL}"
 		
 		read respolybar
 		
-		if [ $respolybar == "y" ];then
+		if [ $respolybar == "y" ]; then
 			rm -rf "$HOME/.config/polybar"
 			cp -r $HOME/ArchAutopwm/polybar/ $HOME/.config/
 			chmod +x $HOME/.config/polybar/forest/launch.sh
@@ -127,16 +127,16 @@ else
 	fi
 
 	#ZSH
-	if command -v zsh &> /dev/null; then
-		echo "Installing ZSH"
+	if ! command -v zsh &> /dev/null; then
+		echo -e "${GREEN}Installing ZSH${RESET}"
 		sudo pacman -S --noconfirm zsh	
 		chsh -s $(which zsh)
-		echo "$SHELL"
+		#echo "$SHELL"
 	fi	
 	
 	#OHMYZSH
-	ZSHRC="$HOME/.zshrc"
-	if [ ! -f "$ZSHRC" ]; then
+	ZSHRC="$HOME/.zsh"
+	if [ -f "$ZSH" ]; then
 		echo -e "${GREEN}Installing OhMyZsh${RESET}"
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 		rm -rf $HOME/.zshrc
@@ -145,11 +145,11 @@ else
 		if [ ! -d "$HOMEHOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
 			echo -e "${GREEN}Installing PowerLevel10k${RESET}"
 			git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+			cp $HOME/ArchAutopwm/.p10k.zsh $HOME/
 		fi
 		cp ~/ArchAutopwm/.zshrc $HOME/
+		cp ~/ArchAutopwm/.p10k.zsh $HOME/
 		echo -e "${OK}"
-	else 
-		echo -e "${BACKUP}"
 	fi
 
 	#PICOM

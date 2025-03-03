@@ -24,4 +24,6 @@ feh --bg-scale $HOME/ArchAutopwm/wallpaper/lainwallpaper2.jpg &
 polybar -c $HOME/.config/polybar/forest/config.ini &
 bash $HOME/.config/polybar/forest/launch.sh &
 
+rofi -show drun -config $HOME/.config/rofi/config.rasi &
+
 exec bspwm
