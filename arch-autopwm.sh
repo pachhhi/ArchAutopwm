@@ -138,15 +138,18 @@ else
 		#echo "$SHELL"
 	
 		echo -e "${GREEN}Installing OhMyZsh${RESET}"
-		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-		rm -rf $HOME/.zshrc
+		RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+		#rm -rf $HOME/.zshrc
 				
 		#POWERLEVEL10K
 		echo -e "${GREEN}Installing PowerLevel10k${RESET}"
 		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-		cp  $HOME/ArchAutopwm/.zshrc $HOME/
-		cp  $HOME/ArchAutopwm/.p10k.zsh $HOME/
-		sudo chown $(whoami):$(whoami) ~/.p10k.zsh
+		rm -rf $HOME/.zshrc
+		cp $HOME/ArchAutopwm/.zshrc $HOME/
+		cp $HOME/ArchAutopwm/.p10k.zsh $HOME/
+		sudo chown $(whoami):$(whoami) ~/.p10k.zsh	
+		chsh -s $(which zsh)
+		echo "$SHELL"
 		echo -e "${OK}"
 	fi	
 	
