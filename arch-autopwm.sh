@@ -156,10 +156,11 @@ else
 		if [ -f $HOME/.p10k.zsh ]; then
 			rm -rf $HOME/.p10k.zsh 
 			cp $HOME/ArchAutopwm/.p10k.zsh $HOME/
-		
+			
+		else 
+			cp $HOME/ArchAutopwm/p.10k.zsh $HOME/	
 		fi
 		
-		cp $HOME/ArchAutopwm/.p10k.zsh $HOME/
 		sudo chown $(whoami):$(whoami) ~/.p10k.zsh	
 		sudo chsh -s $(which zsh)
 		echo "$SHELL"
@@ -195,5 +196,3 @@ else
 	fi
 fi	
 
-#p10k todavia no funciona, cuando se descarga no aparece en $HOME
-#ya modifique el config.rasi de rofi, ahora creo que apunta hacia el path correcto. modificarlo en el script de test o hacer un git push
