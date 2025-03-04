@@ -17,6 +17,8 @@ else
 	#Update System
 	echo -e "${GREEN}Updating System before to install${RESET}"
 	sudo pacman -Syu --noconfirm
+	
+	echo -e "${GREEN}Downloading: bspwm, polybar, sxhkd, rofi, kitty, feh, picom${RESET}"
 	sudo pacman -S --noconfirm bspwm polybar sxhkd rofi kitty feh picom
 
 	#BSPWM
@@ -171,7 +173,7 @@ else
 	fi
 	
 	#REBOOT NOW
-	echo -e "${RED}Do you want reboot now?${RESET}"
+	echo -e "${RED}Do you want reboot now? (y/n)${RESET}"
 	read resreboot
 	
 	if [ $resreboot == "y" ]; then
@@ -181,3 +183,5 @@ else
 	fi
 fi	
 
+#p10k todavia no funciona, cuando se descarga no aparece en $HOME
+#ya modifique el config.rasi de rofi, ahora creo que apunta hacia el path correcto. modificarlo en el script de test o hacer un git push
