@@ -136,29 +136,20 @@ else
 		sudo pacman -S --noconfirm zsh	
 		chsh -s $(which zsh)
 		#echo "$SHELL"
-	fi	
 	
-	#OHMYZSH
-	ZSHRC="$HOME/.zsh"
-	if [ -f "$ZSH" ]; then
 		echo -e "${GREEN}Installing OhMyZsh${RESET}"
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 		rm -rf $HOME/.zshrc
 				
 		#POWERLEVEL10K
-		if [ ! -d "$HOMEHOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
-			echo -e "${GREEN}Installing PowerLevel10k${RESET}"
-			git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-			cp -r 
-			cp $HOME/ArchAutopwm/.p10k.zsh $HOME/
-			sudo chown $(whoami):$(whoami) ~/.p10k.zsh
-		fi
+		echo -e "${GREEN}Installing PowerLevel10k${RESET}"
+		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 		cp  $HOME/ArchAutopwm/.zshrc $HOME/
 		cp  $HOME/ArchAutopwm/.p10k.zsh $HOME/
 		sudo chown $(whoami):$(whoami) ~/.p10k.zsh
 		echo -e "${OK}"
-	fi
-
+	fi	
+	
 	#PICOM
 	if [ -d "$HOME/.config/picom" ]; then
 		echo -e "${EXISTS}"
