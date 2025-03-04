@@ -134,7 +134,7 @@ else
 	if ! command -v zsh &> /dev/null; then
 		echo -e "${GREEN}Installing ZSH${RESET}"
 		sudo pacman -S --noconfirm zsh	
-		chsh -s $(which zsh)
+		sudo chsh -s $(which zsh)
 		#echo "$SHELL"
 	
 		echo -e "${GREEN}Installing OhMyZsh${RESET}"
@@ -144,11 +144,15 @@ else
 		#POWERLEVEL10K
 		echo -e "${GREEN}Installing PowerLevel10k${RESET}"
 		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-		rm -rf $HOME/.zshrc
-		cp $HOME/ArchAutopwm/.zshrc $HOME/
+		if [ -f $HOME/.p10k.zsh ]; then
+			rm -rf $HOME/.p10k.zsh 
+			cp $HOME/ArchAutopwm/.p10k.zsh $HOME/
+		
+		fi
+
 		cp $HOME/ArchAutopwm/.p10k.zsh $HOME/
 		sudo chown $(whoami):$(whoami) ~/.p10k.zsh	
-		chsh -s $(which zsh)
+		sudo chsh -s $(which zsh)
 		echo "$SHELL"
 		echo -e "${OK}"
 	fi	
