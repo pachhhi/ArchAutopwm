@@ -119,12 +119,14 @@ else
 		if [ $rofires == "y" ]; then
 			rm -rf $HOME/.config/rofi
 			cp -r $HOME/ArchAutopwm/rofi $HOME/.config/
+			sudo chown -R $(whoami):$(whoami) ~/.config/rofi
 			echo -e "${OK}"
 		else
 			echo -e "${BACKUP}"
 		fi
 	else
 		cp -r $HOME/ArchAutopwm/rofi $HOME/.config/
+		sudo chown -R $(whoami):$(whoami) ~/.config/rofi
 		echo -e "${OK}"
 	fi
 
@@ -148,9 +150,11 @@ else
 			echo -e "${GREEN}Installing PowerLevel10k${RESET}"
 			git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 			cp $HOME/ArchAutopwm/.p10k.zsh $HOME/
+			sudo chown $(whoami):$(whoami) ~/.p10k.zsh
 		fi
 		cp ~/ArchAutopwm/.zshrc $HOME/
 		cp ~/ArchAutopwm/.p10k.zsh $HOME/
+		sudo chown $(whoami):$(whoami) ~/.p10k.zsh
 		echo -e "${OK}"
 	fi
 
@@ -172,12 +176,12 @@ else
 		echo -e "${OK}"
 	fi
 	
-	#REBOOT NOW
+	#REBOOT 
 	echo -e "${RED}Do you want reboot now? (y/n)${RESET}"
 	read resreboot
 	
 	if [ $resreboot == "y" ]; then
-		sudo reboot now 
+		sudo reboot 
 	else
 		echo -e "Finished!"
 	fi
