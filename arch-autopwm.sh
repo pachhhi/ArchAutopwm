@@ -149,11 +149,12 @@ else
 		if [ ! -d "$HOMEHOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
 			echo -e "${GREEN}Installing PowerLevel10k${RESET}"
 			git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+			cp -r 
 			cp $HOME/ArchAutopwm/.p10k.zsh $HOME/
 			sudo chown $(whoami):$(whoami) ~/.p10k.zsh
 		fi
-		cp ~/ArchAutopwm/.zshrc $HOME/
-		cp ~/ArchAutopwm/.p10k.zsh $HOME/
+		cp  $HOME/ArchAutopwm/.zshrc $HOME/
+		cp  $HOME/ArchAutopwm/.p10k.zsh $HOME/
 		sudo chown $(whoami):$(whoami) ~/.p10k.zsh
 		echo -e "${OK}"
 	fi
