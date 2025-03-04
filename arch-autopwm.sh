@@ -139,8 +139,17 @@ else
 	
 		echo -e "${GREEN}Installing OhMyZsh${RESET}"
 		RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-		#rm -rf $HOME/.zshrc
-				
+		
+		if [ -f $HOME/.zshrc ]; then
+			rm -rf $HOME/.zshrc
+			cp $HOME/ArchAutopwm/.zshrc $HOME/
+		else
+			cp $HOME/ArchAutopwm/.zshrc $HOME/
+		fi
+
+		rm -rf $HOME/.oh-my-zsh
+		cp -r $HOME/ArchAutopwm/.oh-my-zsh $HOME/		
+
 		#POWERLEVEL10K
 		echo -e "${GREEN}Installing PowerLevel10k${RESET}"
 		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
@@ -149,7 +158,7 @@ else
 			cp $HOME/ArchAutopwm/.p10k.zsh $HOME/
 		
 		fi
-
+		
 		cp $HOME/ArchAutopwm/.p10k.zsh $HOME/
 		sudo chown $(whoami):$(whoami) ~/.p10k.zsh	
 		sudo chsh -s $(which zsh)
@@ -176,7 +185,7 @@ else
 	fi
 	
 	#REBOOT 
-	echo -e "${RED}Do you want reboot now? (y/n)${RESET}"
+	echo -e "${RED}Do you want reboot? (y/n)${RESET}"
 	read resreboot
 	
 	if [ $resreboot == "y" ]; then
