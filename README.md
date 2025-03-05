@@ -23,7 +23,7 @@
    ./arch-autopwm
    ```
 
-<div style="display: flex; justify-content: center;">
+<div style="display: flex; flex-direction: column; align-items: center;">
   <img src="screenshot/ArchAutopwm1.png" style="width: 70%;" />
   <img src="screenshot/ArchAutopwm2.png" style="width: 70%;" />
 </div>
