@@ -23,5 +23,9 @@
    ./arch-autopwm
    ```
 
-![ArchAutopwm](screenshot/ArchAutopwm1.png)
-![ArchAutopwm](screenshot/ArchAutopwm2.png)
+<div style="display: flex; justify-content: space-between;">
+  <img src="screenshot/ArchAutopwm1.png" style="width: 48%;" />
+  <img src="screenshot/ArchAutopwm2.png" style="width: 48%;" />
+</div>
+
+   
