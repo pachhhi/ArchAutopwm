@@ -23,6 +23,6 @@
    ./arch-autopwm
    ```
 
-![ArchAutopwm](screenshot/ArchAutopwm1.png)
+![ArchAutopwm](screenshot/ArchAutopwm.png)
 ![ArchAutopwm](screenshot/ArchAutopwm2.png)
    
